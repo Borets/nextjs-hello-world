@@ -9,6 +9,10 @@ services:
   envVars:
   - key: NODE_ENV
     value: production
+  - key: DATABASE_URL
+    value: ${DATABASE_URL}
+  - key: REDIS_URL
+    value: ${REDIS_URL}
 # Uncomment the following to deploy this app as a static site on render
 # - type: web
 #   name: nextjs-static
@@ -19,4 +23,15 @@ services:
 #   envVars:
 #   - key: NODE_ENV
 #     value: production
+- type: worker
+  name: nextjs-hello-world-worker
+  runtime: node
+  plan: starter
+  buildCommand: yarn
+  startCommand: yarn worker
+  envVars:
+  - key: NODE_ENV
+    value: production
+  - key: REDIS_URL
+    value: ${REDIS_URL}
 
